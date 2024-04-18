@@ -27,6 +27,7 @@
   "bugs": {
     "url": "https://github.com/vensst/export-file/issues"
   },
+  "homepage": "https://github.com/vensst/export-file/blob/main/README.md",
   "dependencies": {
     "@vensst/js-toolkit": "^1.1.0-beta.17",
     "file-saver": "^2.0.5",
