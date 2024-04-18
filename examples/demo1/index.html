@@ -1,0 +1,361 @@
+<!--
+ * @Name: index.html
+ * @Description:
+ * @Date: 2024/4/9 上午9:54
+ * @Author: huyafei
+ * @LastEditors: huyafei
+ * @LastEditTime: 2024/4/9 上午9:54
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>导出excel</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.13/vue.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.5.0/axios.js"></script>
+  <script src="../../lib/main.js"></script>
+  <style>
+    /* global styles */
+    :root {
+      --color-black-text: #333;
+      --color-white-background: #fff
+    }
+
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 62.5%;
+      /*font-family: Microsoft YaHei, Arial, sans-serif;*/
+      /*阻止旋转屏幕时自动调整字体大小*/
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      /* 解决IOS默认滑动很卡的情况 */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    html,
+    body {
+      /*width: 100%;*/
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-size: 14px;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      color: var(--color-black-text);
+      background-color: var(--color-white-background);
+      line-height: 1.15;
+    }
+
+    .page {
+
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="page">
+    <div style="text-align: center">
+      <button @click="exportExcel">数据导出 Excel</button>
+      <button @click="exportExcelByDom">表格导出 Excel</button>
+      <button @click="exportImage">导出图片</button>
+      <button @click="exportPDF">导出 pdf</button>
+      <button @click="exportPDF2">导出 pdf2</button>
+    </div>
+    <div ref="blockRef">
+      <header>
+        <h3 style="text-align: center">导出文件</h3>
+      </header>
+      <table border="1" ref="tableRef" style="width: 100%">
+        <thead>
+        <tr>
+          <th rowspan="3">日期</th>
+          <th colspan="4">配送信息</th>
+          <th rowspan="3">价格</th>
+        </tr>
+        <tr>
+          <th rowspan="2">姓名</th>
+          <th colspan="3">地址</th>
+
+        </tr>
+        <tr>
+          <th>省份</th>
+          <th>市区</th>
+          <th>地址</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in 6" key="item">
+          <td>2016-05-03</td>
+          <td>王小虎</td>
+          <td>上海</td>
+          <td>普陀区</td>
+          <td>上海市普陀区金沙江路 1518 弄</td>
+          <td>30.00</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="5">合计</td>
+          <td>180.00</td>
+        </tr>
+        </tfoot>
+      </table>
+      <div style="">
+        <div v-for="item in 6" key="item" style="margin: 10px 0;line-height: 20px">
+          <div>
+            {{item}}、徐志摩曾说过：“一生中至少该有一次，为了某个人而忘记了自己，不求结果，不求同行，不求曾经拥有，甚至不求你爱我，只求在我最美的年华里，遇见你。”我不知道自己是何等的幸运能在茫茫人海中与你相遇？我也不知道你的出现是恩赐还是劫？但总归要说声“谢谢你，谢谢你曾来过……”，还记得初相识时你那拘谨的样子，话不是很多只是坐在那里听我不停地说着各种不着边际的话。可能因为紧张我也不知道自己想要表达什么？只知道乱七八糟的在说，而你只是静静地听着，偶尔插一两句。想想自己也不知道一个慢热甚至在不熟的人面前不苟言笑的我那天怎么会那么多话？后来才知道那就是你给的莫名的熟悉感和包容吧！
+          </div>
+          <img src="https://inews.gtimg.com/om_bt/OjPq2cnMN_-ivDKjxpCZ2kk_ab8YC5VMnL-0pQ21fUvd4AA/1000" alt="" crossorigin="anonymous"
+               style="width: 100%;height: auto">
+        </div>
+      </div>
+      <footer style="background: #eee;height: 100px;line-height: 100px">
+        <h3 style="text-align: center">导出文件</h3>
+      </footer>
+    </div>
+  </div>
+</div>
+<script type="module">
+  console.log(window)
+  new Vue({
+    el: "#app",
+    data() {
+      return {}
+    },
+    created() {
+
+    },
+    mounted() {
+
+    },
+    methods: {
+      exportExcel() {
+        // https://www.npmjs.com/package/xlsx-js-style?activeTab=readme
+        const excelOption = {
+          multiHeader: [ // 多级表头
+            ["日期", "配送信息", "", "", "", "价格"],
+            ["", "姓名", "地址", "", "", ""],
+            ["", "", "省份", "市区", "地址", ""],
+          ],
+          // title: [], // 标题
+          // header: [], // 表头
+          data: [
+            ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
+            ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
+            ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
+            ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
+            ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
+            ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
+          ], // 数据
+          footer: [
+            ["合计", "", "", "", "", "180.00"],
+          ], // 底部(你也可以不写，放到 data 中)
+          merges: ["A1:A3", "B1:E1", "F1:F3", "C2:E2", "B2:B3", "A10:E10"], // 合并单元格（使用单元格地址格式）
+          fileName: "测试导出", // 文件名
+          bookType: "xlsx",// 输出格式
+          autoWidth: false,// 自适应宽度
+          // 样式只做了替换没做合并
+          headerStyle: {
+            font: {
+              name: "Arial", // 字体
+              sz: 16, // 字体大小
+              color: { // 字体颜色
+                rgb: "000000"
+              },
+              bold: true, // 字体加粗
+
+            },
+            fill: {
+              fgColor: { // 填充颜色
+                rgb: "C5D9F1"
+              },
+            },
+            alignment: {
+              horizontal: 'center',
+              vertical: 'center',
+            },
+            border: {
+              top: {
+                style: "thin",
+              },
+              bottom: {
+                style: "thin",
+              },
+              left: {
+                style: "thin",
+              },
+              right: {
+                style: "thin",
+              },
+            },// 边框
+          },// 表头样式
+          contentStyle: {
+            alignment: {
+              horizontal: "left",
+              vertical: "center",
+              wrapText: true, // 自动换行
+            },
+          }, // 内容样式
+          footerStyle: {
+            alignment: {
+              horizontal: "left",
+              vertical: "center",
+            },
+          }, // 底部样式
+          customCellStyle: [
+            {
+              cell: ["F10"],
+              style: {
+                fill: {
+                  fgColor: { // 填充颜色
+                    rgb: "FF0000"
+                  },
+                },
+              }
+            },
+            {
+              cell: ["A10:E10"],
+              style: {
+                alignment: {
+                  horizontal: "right",
+                  vertical: "center",
+                },
+              }
+            }
+          ]// 自定义样式
+        }
+        exportFile.toExcel(excelOption)
+      },
+      exportExcelByDom() {
+        // https://www.npmjs.com/package/xlsx-js-style?activeTab=readme
+        const excelOption = {
+          fileName: "测试导出", // 文件名
+          bookType: "xlsx",// 输出格式
+          contentStyle: {
+            alignment: {
+              horizontal: "left",
+              vertical: "center",
+              wrapText: true, // 自动换行
+            },
+          }, // 内容样式
+          customCellStyle: [
+            {
+              cell: ["A1:F3"],
+              style: {
+                font: {
+                  name: "Arial", // 字体
+                  sz: 16, // 字体大小
+                  color: { // 字体颜色
+                    rgb: "000000"
+                  },
+                  bold: true, // 字体加粗
+
+                },
+                fill: {
+                  fgColor: { // 填充颜色
+                    rgb: "C5D9F1"
+                  },
+                },
+                alignment: {
+                  horizontal: 'center',
+                  vertical: 'center',
+                },
+                border: {
+                  top: {
+                    style: "thin",
+                  },
+                  bottom: {
+                    style: "thin",
+                  },
+                  left: {
+                    style: "thin",
+                  },
+                  right: {
+                    style: "thin",
+                  },
+                },// 边框
+              }
+            },
+            {
+              cell: ["F10"],
+              style: {
+                fill: {
+                  fgColor: { // 填充颜色
+                    rgb: "FF0000"
+                  },
+                },
+              }
+            },
+            {
+              cell: ["A10:E10"],
+              style: {
+                alignment: {
+                  horizontal: "right",
+                  vertical: "center",
+                },
+              }
+            }
+          ]// 自定义样式
+        }
+        exportFile.toExcel({element: this.$refs.tableRef, ...excelOption})
+      },
+      //
+      async exportImage() {
+        const b = await exportFile.toImage(this.$refs.blockRef, {
+          fileName: "测试导出",
+          imageType: "png",
+          // isDownload: false,// 默认true-下载图片，false-返回 {canvas,blob}
+          html2canvas: {
+            // ... （可以添加 html2canvas配置）https://html2canvas.hertzen.com/configuration
+            logging: false,
+            allowTaint: false,
+            useCORS: true,
+            // 下面两个用来提高清晰度
+            dpi: window.devicePixelRatio * 4, //将分辨率提高到特定的DPI 提高四倍
+            scale: 4, //按比例增加分辨率
+            // background: null,
+          }
+
+        })
+        console.log(b)
+      },
+      //
+      exportPDF() {
+        exportFile.toPdf(this.$refs.blockRef, {
+          fileName: "测试导出",
+          // padding: {top: 0, right: 0, bottom: 0, left: 0},// pdf 边距
+          // isPage: false,
+          // html2canvas: {
+          //   logging: false,
+          //   allowTaint: false,
+          //   useCORS: true,
+          //   scale: 4, //按比例增加分辨率
+          // },
+        })
+      },
+      exportPDF2() {
+        const pdfLoader = new exportFile.PdfLoader(this.$refs.blockRef, {
+          // footer: footer,
+          // header: header,
+          // outputType:'file',
+          fileName: "自定义名字",
+          direction: "p",
+          isPageMessage: true
+        });
+        pdfLoader.getPdf().then((res) => {
+          console.log("[ 导出成功] >", res);
+        });
+      }
+    }
+  })
+</script>
+</body>
+</html>

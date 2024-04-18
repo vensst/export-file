@@ -1,0 +1,47 @@
+{
+  "name": "@vensst/export-file",
+  "version": "1.0.0",
+  "description": "导出excel、pdf和图片",
+  "keywords": [
+    "@vensst/export-file",
+    "@vensst",
+    "xlsx",
+    "xlsx-js-style",
+    "html2canvas",
+    "jspdf",
+    "file-saver"
+  ],
+  "main": "lib/main.js",
+  "scripts": {
+    "clean": "rm dist/bundle.js",
+    "dev": "webpack --config build/dev.conf.js",
+    "build": "webpack --config build/prod.conf.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vensst",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vensst/export-file.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vensst/export-file/issues"
+  },
+  "dependencies": {
+    "@vensst/js-toolkit": "^1.1.0-beta.17",
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "node-polyfill-webpack-plugin": "^3.0.0",
+    "xlsx": "^0.18.5",
+    "xlsx-js-style": "^1.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "babel-loader": "^9.1.3",
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "clean-webpack-plugin": "^4.0.0"
+  }
+}
