@@ -6,11 +6,9 @@
  * @LastEditors: huyafei
  * @LastEditTime: 2024/4/9 上午10:00
  */
-import {deepClone} from "@vensst/js-toolkit"
-import * as XLSX from "xlsx/xlsx.mjs";
+import * as XLSX from "xlsx";
 import XLSXJsStyle from "xlsx-js-style";
 import FileSaver from "file-saver";
-
 // 样式参考 https://www.npmjs.com/package/xlsx-js-style?activeTab=readme
 const BORDER_STYLE = {
   top: {
@@ -65,7 +63,9 @@ const FOOTER_STYLE = {
     vertical: "center",
   },
 }
-
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
 function s2ab(s) {
   let buf = new ArrayBuffer(s.length);
   let view = new Uint8Array(buf);
@@ -335,8 +335,8 @@ const toExcel = function ({
 
 export {
   toExcel,
-  XLSX,
-  XLSXJsStyle,
-  FileSaver,
+  // XLSX,
+  // XLSXJsStyle,
+  // FileSaver,
 }
 

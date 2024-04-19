@@ -3,8 +3,9 @@
  *
  *
  */
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 // http://www.rotisedapsales.com/snr/cloud2/website/jsPDF-master/docs/jsPDF.html
 // https://gitee.com/jseven68/vue-pdf2 算法参考地址
 

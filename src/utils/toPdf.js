@@ -7,7 +7,7 @@
  * @LastEditTime: 2024/4/9 上午10:00
  */
 import html2canvas from "html2canvas"
-import {jsPDF} from "jspdf";
+import jsPDF from "jspdf";
 
 /**
  * 将 html 导出 pdf（只能导出纵向 a4 纸大小的 pdf）或者使用 PdfLoader 导出
@@ -102,5 +102,5 @@ const toPdf = function (element, {
 
 export {
   toPdf,
-  jsPDF
+  // jsPDF
 }

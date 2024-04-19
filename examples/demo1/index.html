@@ -113,7 +113,8 @@
           <div>
             {{item}}、徐志摩曾说过：“一生中至少该有一次，为了某个人而忘记了自己，不求结果，不求同行，不求曾经拥有，甚至不求你爱我，只求在我最美的年华里，遇见你。”我不知道自己是何等的幸运能在茫茫人海中与你相遇？我也不知道你的出现是恩赐还是劫？但总归要说声“谢谢你，谢谢你曾来过……”，还记得初相识时你那拘谨的样子，话不是很多只是坐在那里听我不停地说着各种不着边际的话。可能因为紧张我也不知道自己想要表达什么？只知道乱七八糟的在说，而你只是静静地听着，偶尔插一两句。想想自己也不知道一个慢热甚至在不熟的人面前不苟言笑的我那天怎么会那么多话？后来才知道那就是你给的莫名的熟悉感和包容吧！
           </div>
-          <img src="https://inews.gtimg.com/om_bt/OjPq2cnMN_-ivDKjxpCZ2kk_ab8YC5VMnL-0pQ21fUvd4AA/1000" alt="" crossorigin="anonymous"
+          <img src="https://inews.gtimg.com/om_bt/OjPq2cnMN_-ivDKjxpCZ2kk_ab8YC5VMnL-0pQ21fUvd4AA/1000" alt=""
+               crossorigin="anonymous"
                style="width: 100%;height: auto">
         </div>
       </div>
@@ -127,16 +128,8 @@
   console.log(window)
   new Vue({
     el: "#app",
-    data() {
-      return {}
-    },
-    created() {
-
-    },
-    mounted() {
-
-    },
     methods: {
+      // 导出 excel
       exportExcel() {
         // https://www.npmjs.com/package/xlsx-js-style?activeTab=readme
         const excelOption = {
@@ -234,6 +227,7 @@
         }
         exportFile.toExcel(excelOption)
       },
+      // 根据dom元素导出excel
       exportExcelByDom() {
         // https://www.npmjs.com/package/xlsx-js-style?activeTab=readme
         const excelOption = {
@@ -307,7 +301,7 @@
         }
         exportFile.toExcel({element: this.$refs.tableRef, ...excelOption})
       },
-      //
+      // 导出图片
       async exportImage() {
         const b = await exportFile.toImage(this.$refs.blockRef, {
           fileName: "测试导出",
@@ -327,7 +321,7 @@
         })
         console.log(b)
       },
-      //
+      // 导出 pdf
       exportPDF() {
         exportFile.toPdf(this.$refs.blockRef, {
           fileName: "测试导出",
@@ -341,14 +335,10 @@
           // },
         })
       },
+      // 另一种导出 pdf 方式
       exportPDF2() {
         const pdfLoader = new exportFile.PdfLoader(this.$refs.blockRef, {
-          // footer: footer,
-          // header: header,
-          // outputType:'file',
           fileName: "自定义名字",
-          direction: "p",
-          isPageMessage: true
         });
         pdfLoader.getPdf().then((res) => {
           console.log("[ 导出成功] >", res);

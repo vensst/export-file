@@ -53,5 +53,5 @@ const toImage = function (element,{
 }
 export {
   toImage,
-  html2canvas
+  // html2canvas
 }
