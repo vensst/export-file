@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11d50b9a-ddec-4238-a9e1-7f06ee773155" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/base.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/base.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/prod.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/prod.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/demo1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/examples/demo1/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/661.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/838.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/pdfLoader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/pdfLoader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/toExcel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/toExcel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/toImage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/toImage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/toPdf.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/toPdf.js" afterDir="false" />
-    </list>
+    <list default="true" id="11d50b9a-ddec-4238-a9e1-7f06ee773155" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +96,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712625879643</updated>
       <workItem from="1712625880815" duration="166054000" />
-      <workItem from="1713444303535" duration="32145000" />
+      <workItem from="1713444303535" duration="32808000" />
     </task>
     <servers />
   </component>

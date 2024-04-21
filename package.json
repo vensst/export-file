@@ -1,6 +1,6 @@
 {
   "name": "@vensst/export-file",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "导出excel、pdf和图片",
   "keywords": [
     "@vensst/export-file",
