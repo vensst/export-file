@@ -12,6 +12,7 @@
     "file-saver"
   ],
   "main": "lib/main.js",
+  "private": false,
   "scripts": {
     "clean": "rm dist/bundle.js",
     "dev": "webpack --config build/dev.conf.js",
