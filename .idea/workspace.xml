@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11d50b9a-ddec-4238-a9e1-7f06ee773155" name="更改" comment="" />
+    <list default="true" id="11d50b9a-ddec-4238-a9e1-7f06ee773155" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/demo1/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/examples/demo1/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/toPdf.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/toPdf.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +22,7 @@
         <option value="HTML File" />
         <option value="vue2.6全部生命周期" />
         <option value="JavaScript File" />
+        <option value="Markdown" />
       </list>
     </option>
   </component>
@@ -96,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712625879643</updated>
       <workItem from="1712625880815" duration="166054000" />
-      <workItem from="1713444303535" duration="32808000" />
+      <workItem from="1713444303535" duration="47682000" />
     </task>
     <servers />
   </component>

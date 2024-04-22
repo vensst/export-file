@@ -46,6 +46,11 @@ import exportFile from '@vensst/export-file'
 - @param {Array} options.customCellStyle 自定义单元格样式
 
 根据数据导出
+**备注：**
+
+- 可以把所有数据都放 data 中包括 multiHeader、title、header和footer，然后通过配置自定义样式 customCellStyle 就行
+- [xlsx-js-style 样式](https://github.com/gitbrent/xlsx-js-style/)
+- [html2canvas 配置](https://html2canvas.hertzen.com/configuration)
 
 ```js
 const excelOption = {
@@ -220,7 +225,6 @@ const excelOption = {
 exportFile.toExcel({element: this.$refs.tableRef, ...excelOption})
 ```
 
-
 ### toImage(element,options)
 
 - @param {HTMLElement} element 需要导出的 html 根节点
@@ -259,30 +263,35 @@ console.log(b)
 - @param {boolean} options.isPage 是否分页，默认：true
 - @param {Object} options.html2canvas html2canvas 配置
 - @param {Object} options.jspdf jspdf 配置(除了orientation、unit、format其它可配)
-- @param {Object} options.html2pdf html2pdf 配置
-- @param {Object} options.jspdf jspdf F配置
+
+**备注：**
+
+-[html2canvas 配置](https://html2canvas.hertzen.com/configuration)
+-[jspdf 配置](https://raw.githack.com/MrRio/jsPDF/master/docs/index.html)
 
 ```js
     exportFile.toPdf(this.$refs.blockRef, {
-          fileName: "测试导出",
-          // padding: {top: 0, right: 0, bottom: 0, left: 0},// pdf 边距
-          // isPage: false,
-          // html2canvas: {
-          //   logging: false,
-          //   allowTaint: false,
-          //   useCORS: true,
-          //   scale: 4, //按比例增加分辨率
-          // },
-        })
+  fileName: "测试导出",
+  // padding: {top: 0, right: 0, bottom: 0, left: 0},// pdf 边距
+  // isPage: false,
+  // html2canvas: {
+  //   logging: false,
+  //   allowTaint: false,
+  //   useCORS: true,
+  //   scale: 4, //按比例增加分辨率
+  // },
+})
 ```
 
 ### PdfLoader 构造函数
-[参考](https://gitee.com/jseven68/vue-pdf2/blob/master/src/utils/pdfLoader.js#)
+
+[PdfLoader 参考](https://gitee.com/jseven68/vue-pdf2/blob/master/src/utils/pdfLoader.js#)
+
 ```JS
   const pdfLoader = new exportFile.PdfLoader(this.$refs.blockRef, {
-          fileName: "自定义名字",
-        });
-        pdfLoader.getPdf().then((res) => {
-          console.log("[ 导出成功] >", res);
-        });
+  fileName: "自定义名字",
+});
+pdfLoader.getPdf().then((res) => {
+  console.log("[ 导出成功] >", res);
+});
 ```

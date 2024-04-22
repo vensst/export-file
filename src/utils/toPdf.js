@@ -18,8 +18,6 @@ import jsPDF from "jspdf";
  * @param {boolean} options.isPage 是否分页，默认：true
  * @param {Object} options.html2canvas html2canvas 配置
  * @param {Object} options.jspdf  jspdf 配置(除了orientation、unit、format其它可配)
- * @param {Object} options.html2pdf html2pdf 配置
- * @param {Object} options.jspdf JSPDF配置
  */
 const toPdf = function (element, {
   fileName = "未命名",
