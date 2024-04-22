@@ -30,6 +30,21 @@ import exportFile from '@vensst/export-file'
 
 ### toExcel(options)
 
+- @param {Object} options 导出 excel 配置项
+- @param {HTMLElement} options.element 需要导出的 html 根节点
+- @param {Array} options.multiHeader 多级表头(二维数组)
+- @param {Array} options.title 标题
+- @param {Array} options.header 表头
+- @param {Array} options.data 数据
+- @param {Array} options.footer 表尾
+- @param {Array} options.merges 合并单元格（单元格地址格式，例如:["A10:E10"]）
+- @param {String} options.fileName 文件名
+- @param {String} options.bookType 文件类型
+- @param {Boolean} options.autoWidth 是否自动宽度
+- @param {Object} options.headerStyle 表头样式
+- @param {Object} options.contentStyle 内容样式
+- @param {Array} options.customCellStyle 自定义单元格样式
+
 根据数据导出
 
 ```js
@@ -205,22 +220,15 @@ const excelOption = {
 exportFile.toExcel({element: this.$refs.tableRef, ...excelOption})
 ```
 
-- @param {Object} options 导出 excel 配置项
-- @param {HTMLElement} options.element 需要导出的 html 根节点
-- @param {Array} options.multiHeader 多级表头(二维数组)
-- @param {Array} options.title 标题
-- @param {Array} options.header 表头
-- @param {Array} options.data 数据
-- @param {Array} options.footer 表尾
-- @param {Array} options.merges 合并单元格（单元格地址格式，例如:["A10:E10"]）
-- @param {String} options.fileName 文件名
-- @param {String} options.bookType 文件类型
-- @param {Boolean} options.autoWidth 是否自动宽度
-- @param {Object} options.headerStyle 表头样式
-- @param {Object} options.contentStyle 内容样式
-- @param {Array} options.customCellStyle 自定义单元格样式
 
 ### toImage(element,options)
+
+- @param {HTMLElement} element 需要导出的 html 根节点
+- @param {Object} options 配置项
+- @param {string} options.fileName 文件名，默认："未命名"
+- @param {string} options.imageType 文件后缀类型，默认："png"
+- @param {string} options.isDownload 是否下载，false 返回 blob 格式数据，默认：true
+- @param {Object} options.html2canvas html2canvas 配置
 
 ```js
    const b = await exportFile.toImage(this.$refs.blockRef, {
@@ -241,13 +249,6 @@ exportFile.toExcel({element: this.$refs.tableRef, ...excelOption})
 })
 console.log(b)
 ```
-
-- @param {HTMLElement} element 需要导出的 html 根节点
-- @param {Object} options 配置项
-- @param {string} options.fileName 文件名，默认："未命名"
-- @param {string} options.imageType 文件后缀类型，默认："png"
-- @param {string} options.isDownload 是否下载，false 返回 blob 格式数据，默认：true
-- @param {Object} options.html2canvas html2canvas 配置
 
 ### toPdf(element,options)
 

@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/vensst/export-file/issues"
   },
-  "homepage": "https://github.com/vensst/export-file/blob/main/README.md",
+  "homepage": "https://github.com/vensst/export-file",
   "dependencies": {
     "file-saver": "2.0.5",
     "html2canvas": "1.4.1",
