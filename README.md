@@ -46,6 +46,7 @@ import exportFile from '@vensst/export-file'
 - @param {Array} options.customCellStyle 自定义单元格样式
 
 根据数据导出
+
 **备注：**
 
 - 可以把所有数据都放 data 中包括 multiHeader、title、header和footer，然后通过配置自定义样式 customCellStyle 就行
@@ -266,8 +267,8 @@ console.log(b)
 
 **备注：**
 
--[html2canvas 配置](https://html2canvas.hertzen.com/configuration)
--[jspdf 配置](https://raw.githack.com/MrRio/jsPDF/master/docs/index.html)
+- [html2canvas 配置](https://html2canvas.hertzen.com/configuration)
+- [jspdf 配置](https://raw.githack.com/MrRio/jsPDF/master/docs/index.html)
 
 ```js
     exportFile.toPdf(this.$refs.blockRef, {
@@ -285,7 +286,9 @@ console.log(b)
 
 ### PdfLoader 构造函数
 
-[PdfLoader 参考](https://gitee.com/jseven68/vue-pdf2/blob/master/src/utils/pdfLoader.js#)
+**备注：**
+
+- [PdfLoader 参考](https://gitee.com/jseven68/vue-pdf2/blob/master/src/utils/pdfLoader.js#)
 
 ```JS
   const pdfLoader = new exportFile.PdfLoader(this.$refs.blockRef, {
