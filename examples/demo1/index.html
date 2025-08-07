@@ -14,7 +14,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.13/vue.min.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.5.0/axios.js"></script>
-  <script src="../../lib/main.js"></script>
+  <script src="../../lib/index.umd.js"></script>
+  <script src="../../lib/toExcel.umd.js"></script>
+  <script src="../../lib/toImage.umd.js"></script>
+  <script src="../../lib/toPDF.umd.js"></script>
+
   <style>
     /* global styles */
     :root {
@@ -26,6 +30,8 @@
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     html {
@@ -55,7 +61,14 @@
     }
 
     .page {
-
+      width: 100%;
+      height: 100%;
+      /*  缩放*/
+      /*-webkit-transform: scale(0.75);*/
+      /*transform: scale(0.75);*/
+      /*-webkit-transform-origin: 0 0;*/
+      /*transform-origin: 0 0;*/
+      overflow: hidden;
     }
   </style>
 </head>
@@ -64,13 +77,12 @@
   <div class="page">
     <div style="text-align: center">
       <button @click="exportExcel">数据导出 Excel</button>
-      <button @click="exportExcelByDom">表格导出 Excel</button>
+      <button @click="exportExcelByDom">DOM表格导出 Excel</button>
       <button @click="exportImage">导出图片</button>
       <button @click="exportPDF">导出 pdf</button>
-      <button @click="exportPDF2">导出 pdf2</button>
     </div>
-    <div ref="blockRef">
-      <header>
+    <div id="block" ref="blockRef" style="background-color:#fff;" class="pdf-content">
+      <header style="background: skyblue;margin-bottom: 20px">
         <h3 style="text-align: center">导出文件</h3>
       </header>
       <table border="1" ref="tableRef" style="width: 100%">
@@ -109,28 +121,42 @@
         </tfoot>
       </table>
       <div style="">
-        <div v-for="item in 6" key="item" style="margin: 10px 0;line-height: 20px">
+        <div v-for="item in 15" key="item" style="margin: 10px 0;line-height: 20px">
+          <div style="display: flex;justify-content: space-between;font-size: 36px;margin-bottom: 20px;">
+            <div>{{item}}、这是标题这是标题这是标题这是标题</div>
+            <div>右边</div>
+          </div>
           <div>
             {{item}}、徐志摩曾说过：“一生中至少该有一次，为了某个人而忘记了自己，不求结果，不求同行，不求曾经拥有，甚至不求你爱我，只求在我最美的年华里，遇见你。”我不知道自己是何等的幸运能在茫茫人海中与你相遇？我也不知道你的出现是恩赐还是劫？但总归要说声“谢谢你，谢谢你曾来过……”，还记得初相识时你那拘谨的样子，话不是很多只是坐在那里听我不停地说着各种不着边际的话。可能因为紧张我也不知道自己想要表达什么？只知道乱七八糟的在说，而你只是静静地听着，偶尔插一两句。想想自己也不知道一个慢热甚至在不熟的人面前不苟言笑的我那天怎么会那么多话？后来才知道那就是你给的莫名的熟悉感和包容吧！
           </div>
-          <img src="https://inews.gtimg.com/om_bt/OjPq2cnMN_-ivDKjxpCZ2kk_ab8YC5VMnL-0pQ21fUvd4AA/1000" alt=""
-               crossorigin="anonymous"
-               style="width: 100%;height: auto">
+          <img src="./1.jpeg" alt="" style="width: 100%;height: auto">
         </div>
       </div>
-      <footer style="background: #eee;height: 100px;line-height: 100px">
+      <footer style="background: skyblue;height: 100px;line-height: 100px">
         <h3 style="text-align: center">导出文件</h3>
       </footer>
     </div>
   </div>
 </div>
 <script type="module">
+  import ExportFile from "../../lib/index.esm.js"
+  import {toExcel, toImage, toPDF} from "../../lib/index.esm.js"
+  import htmToExcel from "../../lib/toExcel.esm.js"
+  import htmlToImage from "../../lib/toImage.esm.js"
+  import htmToPDF from "../../lib/toPDF.esm.js"
+  console.log(ExportFile)
+  console.log(toExcel)
+  console.log(toImage)
+  console.log(toPDF)
+  console.log(htmToExcel)
+  console.log(htmlToImage)
+  console.log(htmToPDF)
   console.log(window)
+
   /**
    * [xlsx-js-style 样式](https://github.com/gitbrent/xlsx-js-style/)
    * [html2canvas 配置](https://html2canvas.hertzen.com/configuration)
    * [jspdf 配置](https://raw.githack.com/MrRio/jsPDF/master/docs/index.html)
-   * [PdfLoader 参考](https://gitee.com/jseven68/vue-pdf2/blob/master/src/utils/pdfLoader.js#)
    *
    */
   new Vue({
@@ -140,217 +166,198 @@
       exportExcel() {
         // https://www.npmjs.com/package/xlsx-js-style?activeTab=readme
         const excelOption = {
-          multiHeader: [ // 多级表头
+          fileName: "测试导出", // 文件名
+          sheetName: "配送地址表", // sheetName
+          data: [
+            ['标题', '', '', '', '', '',],
             ["日期", "配送信息", "", "", "", "价格"],
             ["", "姓名", "地址", "", "", ""],
             ["", "", "省份", "市区", "地址", ""],
-          ],
-          // title: [], // 标题
-          // header: [], // 表头
-          data: [
+            ['列1', '列2', '列3', '列4', '列5', '列6',],
             ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
             ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
             ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
             ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
             ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
             ["2016-05-03", "王小虎", "上海", "普陀区", '上海市普陀区金沙江路 1518 弄', "30.00"],
-          ], // 数据
-          footer: [
             ["合计", "", "", "", "", "180.00"],
-          ], // 底部(你也可以不写，放到 data 中)
-          merges: ["A1:A3", "B1:E1", "F1:F3", "C2:E2", "B2:B3", "A10:E10"], // 合并单元格（使用单元格地址格式）
-          fileName: "测试导出", // 文件名
-          bookType: "xlsx",// 输出格式
-          autoWidth: false,// 自适应宽度
-          // 样式只做了替换没做合并
-          headerStyle: {
-            font: {
-              name: "Arial", // 字体
-              sz: 16, // 字体大小
-              color: { // 字体颜色
-                rgb: "000000"
-              },
-              bold: true, // 字体加粗
-
-            },
-            fill: {
-              fgColor: { // 填充颜色
-                rgb: "C5D9F1"
-              },
-            },
-            alignment: {
-              horizontal: 'center',
-              vertical: 'center',
-            },
-            border: {
-              top: {
-                style: "thin",
-              },
-              bottom: {
-                style: "thin",
-              },
-              left: {
-                style: "thin",
-              },
-              right: {
-                style: "thin",
-              },
-            },// 边框
-          },// 表头样式
-          contentStyle: {
-            alignment: {
-              horizontal: "left",
-              vertical: "center",
-              wrapText: true, // 自动换行
-            },
-          }, // 内容样式
-          footerStyle: {
-            alignment: {
-              horizontal: "left",
-              vertical: "center",
-            },
-          }, // 底部样式
-          customCellStyle: [
-            {
-              cell: ["F10"],
-              style: {
-                fill: {
-                  fgColor: { // 填充颜色
-                    rgb: "FF0000"
-                  },
+          ], // 数据
+          styles: {
+            'A1:F5': {
+              font: {
+                name: 'Arial', // 字体
+                sz: 16, // 字体大小
+                color: {
+                  // 字体颜色
+                  rgb: '000000',
                 },
-              }
-            },
-            {
-              cell: ["A10:E10"],
-              style: {
-                alignment: {
-                  horizontal: "right",
-                  vertical: "center",
+                bold: true, // 字体加粗
+              },
+              fill: {
+                fgColor: {
+                  // 填充颜色
+                  rgb: 'C5D9F1',
                 },
-              }
-            }
-          ]// 自定义样式
+              },
+              alignment: {
+                horizontal: 'center',
+                vertical: 'center',
+              },
+              border: {
+                top: {
+                  color: {},
+                  style: 'thin',
+                },
+                bottom: {
+                  color: {},
+                  style: 'thin',
+                },
+                left: {
+                  color: {},
+                  style: 'thin',
+                },
+                right: {
+                  color: {},
+                  style: 'thin',
+                },
+              }, // 边框
+            }, // 表头样式
+            'A2:F5': {
+              font: {
+                name: 'Arial', // 字体
+                sz: 16, // 字体大小
+                color: {
+                  // 字体颜色
+                  rgb: '000000',
+                },
+                bold: true, // 字体加粗
+              },
+              alignment: {
+                horizontal: 'center',
+                vertical: 'center',
+              },
+            },
+            F12: {
+              fill: {
+                fgColor: {
+                  // 填充颜色
+                  rgb: 'FF0000',
+                },
+              },
+            },
+          },
+          merges: ["A1:F1", "A2:A4", "B2:E2", "B3:B4", "C3:E3", "F2:F4"], // 合并单元格（使用单元格地址格式）
+          // merges: [
+          //   { s: { r: 0, c: 0 }, e: { r: 0, c: 5 } },
+          //   { s: { r: 1, c: 1 }, e: { r: 1, c: 4 } },
+          //   { s: { r: 1, c: 0 }, e: { r: 3, c: 0} },
+          //   { s: { r: 2, c: 1 }, e: { r: 3, c: 1} },
+          //   { s: { r: 2, c: 2 }, e: { r: 2, c: 4} },
+          //   { s: { r: 1, c: 5 }, e: { r: 3, c: 5} },
+          //   { s: { r: 11, c: 0 }, e: { r: 11, c: 4} },
+          // ], // 合并单元格（使用单元格地址格式）
+          isAutoWidth: true,// 自适应宽度
+          colWidths: {A: 15, B: 25, C: 30}
         }
-        exportFile.toExcel(excelOption)
+        ExportFile.toExcel(excelOption).then(res => {
+          console.log(res)
+        })
       },
       // 根据dom元素导出excel
       exportExcelByDom() {
         // https://www.npmjs.com/package/xlsx-js-style?activeTab=readme
         const excelOption = {
-          fileName: "测试导出", // 文件名
-          bookType: "xlsx",// 输出格式
-          contentStyle: {
-            alignment: {
-              horizontal: "left",
-              vertical: "center",
-              wrapText: true, // 自动换行
+          element: this.$refs.tableRef,
+          fileName: "测试导出2", // 文件名
+          sheetName: "配送地址表2", // sheetName
+          styles: {
+            "A1:F3": {
+              font: {
+                name: "Arial", // 字体
+                sz: 16, // 字体大小
+                color: { // 字体颜色
+                  rgb: "000000"
+                },
+                bold: true, // 字体加粗
+              },
+              alignment: {
+                horizontal: "center",
+                vertical: "center",
+              },
             },
-          }, // 内容样式
-          customCellStyle: [
-            {
-              cell: ["A1:F3"],
-              style: {
-                font: {
-                  name: "Arial", // 字体
-                  sz: 16, // 字体大小
-                  color: { // 字体颜色
-                    rgb: "000000"
-                  },
-                  bold: true, // 字体加粗
-
+            'F10': {
+              fill: {
+                fgColor: { // 填充颜色
+                  rgb: "FF0000"
                 },
-                fill: {
-                  fgColor: { // 填充颜色
-                    rgb: "C5D9F1"
-                  },
-                },
-                alignment: {
-                  horizontal: 'center',
-                  vertical: 'center',
-                },
-                border: {
-                  top: {
-                    style: "thin",
-                  },
-                  bottom: {
-                    style: "thin",
-                  },
-                  left: {
-                    style: "thin",
-                  },
-                  right: {
-                    style: "thin",
-                  },
-                },// 边框
-              }
+              },
             },
-            {
-              cell: ["F10"],
-              style: {
-                fill: {
-                  fgColor: { // 填充颜色
-                    rgb: "FF0000"
-                  },
-                },
-              }
-            },
-            {
-              cell: ["A10:E10"],
-              style: {
-                alignment: {
-                  horizontal: "right",
-                  vertical: "center",
-                },
-              }
-            }
-          ]// 自定义样式
+          },
+          // merges: ["A1:F1", "A2:A4", "B2:E2", "B3:B4", "C3:E3", "F2:F4"], // 合并单元格（使用单元格地址格式）
+          // // merges: [
+          // //   { s: { r: 0, c: 0 }, e: { r: 0, c: 5 } },
+          // //   { s: { r: 1, c: 1 }, e: { r: 1, c: 4 } },
+          // //   { s: { r: 1, c: 0 }, e: { r: 3, c: 0} },
+          // //   { s: { r: 2, c: 1 }, e: { r: 3, c: 1} },
+          // //   { s: { r: 2, c: 2 }, e: { r: 2, c: 4} },
+          // //   { s: { r: 1, c: 5 }, e: { r: 3, c: 5} },
+          // //   { s: { r: 11, c: 0 }, e: { r: 11, c: 4} },
+          // // ], // 合并单元格（使用单元格地址格式）
+          isAutoWidth: true,// 自适应宽度
+          // colWidths: {A: 15, B: 25, C: 30}
         }
-        exportFile.toExcel({element: this.$refs.tableRef, ...excelOption})
+        ExportFile.toExcel(excelOption).then(res => {
+          console.log(res)
+        })
       },
       // 导出图片
-      async exportImage() {
-        const b = await exportFile.toImage(this.$refs.blockRef, {
+      exportImage() {
+        ExportFile.toImage(this.$refs.blockRef, {
           fileName: "测试导出",
-          imageType: "png",
-          // isDownload: false,// 默认true-下载图片，false-返回 {canvas,blob}
+          image: {
+            type: "jpeg",
+            quality: 0.95
+          },
           html2canvas: {
-            // ... （可以添加 html2canvas配置）https://html2canvas.hertzen.com/configuration
+            // ... （可以添加 html2canvas配置）https://www.html2canvas.cn/html2canvas-configuration.html
             logging: false,
-            allowTaint: false,
-            useCORS: true,
-            // 下面两个用来提高清晰度
-            dpi: window.devicePixelRatio * 4, //将分辨率提高到特定的DPI 提高四倍
-            scale: 4, //按比例增加分辨率
-            // background: null,
+            useCORS: true,            //是否允许使用跨域图片
+            // allowTaint: true,         //是否允许跨域的图片渲染到canvas
+            scale: window.devicePixelRatio, //按比例增加分辨率
+            onclone: documentClone => {
+              // img 添加 crossorigin="anonymous"
+              documentClone.querySelectorAll('img').forEach(img => {
+                // img.setAttribute('crossorigin', 'anonymous')
+                // img.setAttribute('src', 'https://gitlab.com/yf_hu/oss/-/raw/main/images/hai.jpeg')
+              })
+            }
           }
-
+        }).then((res) => {
+          console.log(res)
         })
-        console.log(b)
       },
       // 导出 pdf
-      exportPDF() {
-        exportFile.toPdf(this.$refs.blockRef, {
+      async exportPDF() {
+        console.log("正在导出...")
+        ExportFile.toPDF(this.$refs.blockRef, {
           fileName: "测试导出",
-          // padding: {top: 0, right: 0, bottom: 0, left: 0},// pdf 边距
-          // isPage: false,
-          // html2canvas: {
-          //   logging: false,
-          //   allowTaint: false,
-          //   useCORS: true,
-          //   scale: 4, //按比例增加分辨率
-          // },
+          margin: 10,
+          isPage: false,
+          html2canvas: {
+            useCORS: true,
+            onclone: documentClone => {
+              // 处理transform:scale(0.8)页面文案重叠问题
+              documentClone.querySelector('.page').style.transform = 'scale(1)'
+            }
+          },
+          jsPDF: {
+            unit: 'pt',
+          }
+        }).then(res => {
+          console.log(res)
         })
+
       },
-      // 另一种导出 pdf 方式
-      exportPDF2() {
-        const pdfLoader = new exportFile.PdfLoader(this.$refs.blockRef, {
-          fileName: "自定义名字",
-        });
-        pdfLoader.getPdf().then((res) => {
-          console.log("[ 导出成功] >", res);
-        });
-      }
     }
   })
 </script>
