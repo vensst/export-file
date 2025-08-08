@@ -77,7 +77,7 @@ export default async function toExcel(options = {}) {
   }
   const {
     element,
-    fileName = '未命名.xlsx',
+    fileName,
     sheetName = 'Sheet1',
     data = [],
     styles = {},
@@ -171,7 +171,7 @@ export default async function toExcel(options = {}) {
 
   // 4.导出文件（https://docs.sheetjs.com/docs/api/write-options）
   try {
-    XLSX.writeFile(wb, fileName, writeFileOptions);
+    XLSX.writeFile(wb, `${fileName || '未命名'}.xlsx`, writeFileOptions);
     return Promise.resolve(Result.success())
   } catch (e) {
     return Promise.reject(Result.error(e.message))

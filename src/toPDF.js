@@ -148,7 +148,7 @@ export default async function toPDF(element, options = {}) {
       pdf.addImage(pageData, image_Opts.type.toUpperCase(), margin[3], margin[0], imgWidth, imgHeight);
     }
 
-    pdf.save(options.fileName || '未命名.pdf')
+    pdf.save(`${options.fileName || '未命名'}.pdf`)
     return Promise.resolve(Result.success())
   } catch (error) {
     return Promise.reject(Result.error((error.message)))
