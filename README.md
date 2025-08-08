@@ -256,7 +256,7 @@ ExportFile.toImage(this.$refs.blockRef, {
 
 ```js
 ExportFile.toPDF(this.$refs.blockRef, {
-  filename: "测试导出",
+  fileName: "测试导出",
   margin: 10,
   isPage: false,
   html2canvas: {

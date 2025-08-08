@@ -15,12 +15,12 @@
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
   "browser": "lib/index.umd.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib",
     "README.md",
     "LICENSE"
   ],
-  "types": "lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
