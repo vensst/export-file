@@ -3,8 +3,8 @@
   "version": "2.0.0-beta.1",
   "description": "导出excel、pdf和图片",
   "keywords": [
-    "export-file",
     "@vensst/export-file",
+    "export-file",
     "@vensst",
     "xlsx",
     "xlsx-js-style",
