@@ -15,7 +15,9 @@
   "module": "lib/index.esm.js",
   "browser": "lib/index.umd.js",
   "files": [
-    "lib"
+    "lib",
+    "README.md",
+    "LICENSE"
   ],
   "types": "lib/index.d.ts",
   "exports": {
