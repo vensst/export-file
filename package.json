@@ -10,7 +10,8 @@
     "xlsx-js-style",
     "html2canvas",
     "jspdf",
-    "file-saver"
+    "file-saver",
+    "导出文件"
   ],
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -58,7 +59,6 @@
       "require": "./lib/toPDF.cjs.js"
     }
   },
-  "private": false,
   "scripts": {
     "clean": "rimraf lib",
     "build:ts": "tsc --build --clean",
@@ -68,6 +68,7 @@
     "prepublishOnly": "npm run build"
   },
   "author": "vensst",
+  "private": false,
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -96,5 +97,12 @@
     "rollup-plugin-dts": "^6.2.1",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "typescript": "^5.8.3"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "ie >= 8",
+    "chrome >= 49"
+  ]
 }
